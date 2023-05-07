@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "template",
+  "id": "scribe",
   "version": "${version}",
 
-  "name": "Template Mod",
-  "description": "Template Description",
+  "name": "Scribe",
+  "description": "Library used for all of Team Abode's mods",
   "authors": [
     "Team Abode"
   ],
@@ -13,15 +13,15 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
   "license": "All Rights Reserved",
-  "icon": "assets/template/icon.png",
+  "icon": "assets/scribe/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.teamabode.template.TemplateMod"
+      "com.teamabode.scribe.Scribe"
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "scribe.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.17",
