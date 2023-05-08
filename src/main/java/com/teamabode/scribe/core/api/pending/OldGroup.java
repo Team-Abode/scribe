@@ -1,4 +1,4 @@
-package com.teamabode.scribe.core.api.config;
+package com.teamabode.scribe.core.api.pending;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -11,63 +11,63 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class Group {
-    public HashMap<String, Property<?>> properties = new HashMap<>();
+public class OldGroup {
+    public HashMap<String, OldProperty<?>> properties = new HashMap<>();
 
-    public Group property(String key, String defaultValue, Consumer<String> handler) {
-        properties.put(key, new Property<>(key, defaultValue, handler, jsonObject -> GsonHelper.isStringValue(jsonObject, key), jsonObject -> GsonHelper.getAsString(jsonObject, key), value -> new JsonPrimitive(value)));
+    public OldGroup property(String key, String defaultValue, Consumer<String> handler) {
+        properties.put(key, new OldProperty<>(key, defaultValue, handler, jsonObject -> GsonHelper.isStringValue(jsonObject, key), jsonObject -> GsonHelper.getAsString(jsonObject, key), value -> new JsonPrimitive(value)));
 
         return this;
     }
 
-    public Group property(String key, String defaultValue) {
-        properties.put(key, new Property<>(key, defaultValue, value -> {
+    public OldGroup property(String key, String defaultValue) {
+        properties.put(key, new OldProperty<>(key, defaultValue, value -> {
         }, jsonObject -> GsonHelper.isStringValue(jsonObject, key), jsonObject -> GsonHelper.getAsString(jsonObject, key), JsonPrimitive::new));
 
         return this;
     }
 
-    public Group property(String key, int defaultValue, Consumer<Integer> handler) {
-        properties.put(key, new Property<>(key, defaultValue, handler, jsonObject -> GsonHelper.isNumberValue(jsonObject, key), jsonObject -> GsonHelper.getAsInt(jsonObject, key), JsonPrimitive::new));
+    public OldGroup property(String key, int defaultValue, Consumer<Integer> handler) {
+        properties.put(key, new OldProperty<>(key, defaultValue, handler, jsonObject -> GsonHelper.isNumberValue(jsonObject, key), jsonObject -> GsonHelper.getAsInt(jsonObject, key), JsonPrimitive::new));
 
         return this;
     }
 
-    public Group property(String key, int defaultValue) {
-        properties.put(key, new Property<>(key, defaultValue, value -> {
+    public OldGroup property(String key, int defaultValue) {
+        properties.put(key, new OldProperty<>(key, defaultValue, value -> {
         }, jsonObject -> GsonHelper.isNumberValue(jsonObject, key), jsonObject -> GsonHelper.getAsInt(jsonObject, key), JsonPrimitive::new));
 
         return this;
     }
 
-    public Group property(String key, float defaultValue, Consumer<Float> handler) {
-        properties.put(key, new Property<>(key, defaultValue, handler, jsonObject -> GsonHelper.isNumberValue(jsonObject, key), jsonObject -> GsonHelper.getAsFloat(jsonObject, key), JsonPrimitive::new));
+    public OldGroup property(String key, float defaultValue, Consumer<Float> handler) {
+        properties.put(key, new OldProperty<>(key, defaultValue, handler, jsonObject -> GsonHelper.isNumberValue(jsonObject, key), jsonObject -> GsonHelper.getAsFloat(jsonObject, key), JsonPrimitive::new));
 
         return this;
     }
 
-    public Group property(String key, float defaultValue) {
-        properties.put(key, new Property<>(key, defaultValue, value -> {
+    public OldGroup property(String key, float defaultValue) {
+        properties.put(key, new OldProperty<>(key, defaultValue, value -> {
         }, jsonObject -> GsonHelper.isNumberValue(jsonObject, key), jsonObject -> GsonHelper.getAsFloat(jsonObject, key), JsonPrimitive::new));
 
         return this;
     }
 
-    public Group property(String key, boolean defaultValue, Consumer<Boolean> handler) {
-        properties.put(key, new Property<>(key, defaultValue, handler, jsonObject -> GsonHelper.isBooleanValue(jsonObject, key), jsonObject -> GsonHelper.getAsBoolean(jsonObject, key), JsonPrimitive::new));
+    public OldGroup property(String key, boolean defaultValue, Consumer<Boolean> handler) {
+        properties.put(key, new OldProperty<>(key, defaultValue, handler, jsonObject -> GsonHelper.isBooleanValue(jsonObject, key), jsonObject -> GsonHelper.getAsBoolean(jsonObject, key), JsonPrimitive::new));
 
         return this;
     }
 
-    public Group property(String key, boolean defaultValue) {
-        properties.put(key, new Property<>(key, defaultValue, value -> {
+    public OldGroup property(String key, boolean defaultValue) {
+        properties.put(key, new OldProperty<>(key, defaultValue, value -> {
         }, jsonObject -> GsonHelper.isBooleanValue(jsonObject, key), jsonObject -> GsonHelper.getAsBoolean(jsonObject, key), value -> new JsonPrimitive(value)));
 
         return this;
     }
 
-    public Group convertJsonGroup(JsonObject jsonObject) {
-        Group group = new Group();
+    public OldGroup convertJsonGroup(JsonObject jsonObject) {
+        OldGroup group = new OldGroup();
 
         jsonObject.entrySet().forEach(entry -> {
             String key = entry.getKey();
@@ -123,8 +123,8 @@ public class Group {
         JsonArray jsonArray = new JsonArray();
 
         list.forEach(value -> {
-            if(value instanceof Group){
-                jsonArray.add(((Group)value).toJson());
+            if(value instanceof OldGroup){
+                jsonArray.add(((OldGroup)value).toJson());
             } else if(value instanceof List) {
                 jsonArray.add(convertToJsonArray((List<Object>) value));
             } else if(value instanceof Integer) {
@@ -141,45 +141,45 @@ public class Group {
         return jsonArray;
     }
 
-    public Group property(String key, List<Object> defaultValue, Consumer<List<Object>> handler) {
-        properties.put(key, new Property<>(key, defaultValue, handler, jsonObject -> GsonHelper.isArrayNode(jsonObject, key), jsonObject -> convertJsonArray(GsonHelper.getAsJsonArray(jsonObject, key)), value -> ((Group) value).toJson()));
+    public OldGroup property(String key, List<Object> defaultValue, Consumer<List<Object>> handler) {
+        properties.put(key, new OldProperty<>(key, defaultValue, handler, jsonObject -> GsonHelper.isArrayNode(jsonObject, key), jsonObject -> convertJsonArray(GsonHelper.getAsJsonArray(jsonObject, key)), value -> ((OldGroup) value).toJson()));
 
         return this;
     }
 
-    public Group property(String key, List<Object> defaultValue) {
-        properties.put(key, new Property<>(key, defaultValue, value -> {
-        }, jsonObject -> GsonHelper.isArrayNode(jsonObject, key), jsonObject -> convertJsonArray(GsonHelper.getAsJsonArray(jsonObject, key)), value -> ((Group) value).toJson()));
+    public OldGroup property(String key, List<Object> defaultValue) {
+        properties.put(key, new OldProperty<>(key, defaultValue, value -> {
+        }, jsonObject -> GsonHelper.isArrayNode(jsonObject, key), jsonObject -> convertJsonArray(GsonHelper.getAsJsonArray(jsonObject, key)), value -> ((OldGroup) value).toJson()));
 
         return this;
     }
 
-    public Group group(String key, Consumer<Group> handler) {
-        Group group = new Group();
+    public OldGroup group(String key, Consumer<OldGroup> handler) {
+        OldGroup group = new OldGroup();
 
         handler.accept(group);
 
         properties.put(
                 key,
-                new Property<>(key, group, passedGroup -> group.handle(), jsonObject -> GsonHelper.isObjectNode(jsonObject, key), jsonObject -> group.load(jsonObject.getAsJsonObject(key)), Group::toJson));
+                new OldProperty<>(key, group, passedGroup -> group.handle(), jsonObject -> GsonHelper.isObjectNode(jsonObject, key), jsonObject -> group.load(jsonObject.getAsJsonObject(key)), OldGroup::toJson));
 
         return this;
     }
 
-    public Group group(String key, Group group){
-        properties.put(key, new Property<>(key, group, passedGroup -> group.handle(), jsonObject -> GsonHelper.isObjectNode(jsonObject, key), jsonObject -> group.load(jsonObject.getAsJsonObject(key)), Group::toJson));
+    public OldGroup group(String key, OldGroup group){
+        properties.put(key, new OldProperty<>(key, group, passedGroup -> group.handle(), jsonObject -> GsonHelper.isObjectNode(jsonObject, key), jsonObject -> group.load(jsonObject.getAsJsonObject(key)), OldGroup::toJson));
 
         return this;
     }
 
-    public Group load(JsonObject jsonObject){
-        properties.forEach((String key, Property property) -> property.load(jsonObject));
+    public OldGroup load(JsonObject jsonObject){
+        properties.forEach((String key, OldProperty property) -> property.load(jsonObject));
 
         return this;
     }
 
     public void handle() {
-        properties.forEach((String key, Property property) -> property.handle());
+        properties.forEach((String key, OldProperty property) -> property.handle());
     }
 
     public Object get(String key){
@@ -188,16 +188,16 @@ public class Group {
         return properties.get(key).get();
     }
 
-    public Group getGroup(String key){
+    public OldGroup getGroup(String key){
         if(!properties.containsKey(key)) return null;
 
-        return (Group) properties.get(key).get();
+        return (OldGroup) properties.get(key).get();
     }
 
     public JsonObject toJson(){
         JsonObject jsonObject = new JsonObject();
 
-        properties.forEach((String key, Property property) -> {
+        properties.forEach((String key, OldProperty property) -> {
             jsonObject.add(key, property.toJson());
         });
 

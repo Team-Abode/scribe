@@ -51,7 +51,7 @@ public class AnimationParser {
     }
 
     private static AnimationDefinition nullAnimation(ResourceLocation resourceLocation) {
-        Scribe.LOGGER.info("Animation \"" + resourceLocation.toString() + "\" is null");
+        Scribe.LOGGER.warn("Animation \"" + resourceLocation.toString() + "\" is null");
         return AnimationDefinition.Builder.withLength(0.0F).build();
     }
 

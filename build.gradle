@@ -60,6 +60,13 @@ publishing {
 		}
 	}
 	repositories {
-
+		maven {
+			name = "GithubPackages"
+			url = uri("https://maven.pkg.github.com/team-abode/scribe-wip")
+			credentials {
+				username = System.getenv("USERNAME")
+				password = System.getenv("TOKEN")
+			}
+		}
 	}
 }

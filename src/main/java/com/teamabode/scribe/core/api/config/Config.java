@@ -3,142 +3,67 @@ package com.teamabode.scribe.core.api.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.teamabode.scribe.Scribe;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.GsonHelper;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.function.Consumer;
 
-@SuppressWarnings("unused")
 public class Config {
-    private final Path path;
-    private final String id;
-    private final Group root;
+    private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    Config(String id){
-        this.id = id;
-        this.path = getPath();
-        this.root = new Group();
+    private final String fileName;
+    private JsonObject root;
+
+    protected Config(String fileName, JsonObject root) {
+        this.fileName = fileName;
+        this.root = root;
     }
 
-    public static Config define(String id){
-        return new Config(id);
-    }
-
-    public static Path getPath() {
-        return FabricLoader.getInstance().getConfigDir();
-    }
-
-    public Config property(String key, String defaultValue, Consumer<String> handler){
-        root.property(key, defaultValue, handler);
-
-        return this;
-    }
-
-    public Config property(String key, String defaultValue){
-        root.property(key, defaultValue);
-
-        return this;
-    }
-
-    public Config property(String key, int defaultValue, Consumer<Integer> handler){
-        root.property(key, defaultValue, handler);
-
-        return this;
-    }
-
-    public Config property(String key, int defaultValue){
-        root.property(key, defaultValue);
-
-        return this;
-    }
-
-    public Config property(String key, float defaultValue, Consumer<Float> handler){
-        root.property(key, defaultValue, handler);
-
-        return this;
-    }
-
-    public Config property(String key, float defaultValue){
-        root.property(key, defaultValue);
-
-        return this;
-    }
-
-    public Config property(String key, boolean defaultValue, Consumer<Boolean> handler){
-        root.property(key, defaultValue, handler);
-
-        return this;
-    }
-
-    public Config property(String key, boolean defaultValue){
-        root.property(key, defaultValue);
-
-        return this;
-    }
-
-    public Config property(String key, List<Object> defaultValue, Consumer<List<Object>> handler){
-        root.property(key, defaultValue, handler);
-
-        return this;
-    }
-
-    public Config property(String key, List<Object> defaultValue){
-        root.property(key, defaultValue);
-
-        return this;
-    }
-
-    public Config group(String key, Consumer<Group> handler){
-        root.group(key, handler);
-
-        return this;
-    }
-
-    public Config load(){
-        try {
-            FileReader fileReader = new FileReader(path.resolve(id + ".json").toString());
-
-            JsonObject jsonObject = GsonHelper.parse(fileReader);
-
-            fileReader.close();
-
-            System.out.println("Read config file at " + path.resolve(id + ".json"));
-
-            if(!jsonObject.isJsonObject()) throw new AssertionError("Config file must be a json object not an array!");
-
-            root.load(jsonObject);
-        } catch (Exception exception) {
-            Scribe.LOGGER.warn("Error loading config file at " + path.resolve(id + ".json"));
-            Scribe.LOGGER.error(exception.getMessage());
-
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-            try{
-                FileWriter fileWriter = new FileWriter(path.resolve(id + ".json").toString());
-                fileWriter.write(gson.toJson(root.toJson()));
-                fileWriter.close();
-            }catch (Exception exception2){
-                Scribe.LOGGER.warn("Error writing default config at " + path.resolve(id + ".json"));
-                Scribe.LOGGER.error(exception2.getMessage());
-                Scribe.LOGGER.error(String.valueOf(exception2.getStackTrace()[0].getLineNumber()));
-            }
+    protected void run() {
+        if (!this.getFile().exists()) {
+            write();
+            return;
         }
-
-        root.handle();
-
-        return this;
+        read();
     }
 
-    public Object get(String key){
-        return root.get(key);
+    private void write() {
+        try (FileWriter writer = new FileWriter(this.getFile())) {
+            String data = GSON.toJson(root);
+            writer.write(data);
+        }
+        catch (Exception io) {
+            Scribe.LOGGER.error("Failed to write configuration file at " + this.getFile().getPath(), io);
+        }
     }
 
-    public Group getGroup(String key){
-        return (Group) root.get(key);
+    private void read() {
+        try (FileReader reader = new FileReader(this.getFile())) {
+            root = (JsonObject) JsonParser.parseReader(reader);
+        }
+        catch (Exception io) {
+            Scribe.LOGGER.error("Failed to read configuration file at " + this.getFile(), io);
+        }
+    }
+
+    public String getStringProperty(String key) {
+        return root.get(key).getAsString();
+    }
+
+    public int getIntProperty(String key) {
+        return root.get(key).getAsInt();
+    }
+
+    public boolean getBooleanProperty(String key) {
+        return root.get(key).getAsBoolean();
+    }
+
+    private File getFile() {
+        return CONFIG_DIR.resolve(fileName + ".json").toFile();
     }
 }

@@ -1,4 +1,4 @@
-package com.teamabode.scribe.core.api.config;
+package com.teamabode.scribe.core.api.pending;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Property<T> {
+public class OldProperty<T> {
     String key;
     boolean loaded;
     T defaultValue;
@@ -18,7 +18,7 @@ public class Property<T> {
     Function<JsonObject, T> loader;
     Function<T, JsonElement> serializer;
 
-    public Property(String key, T defaultValue, Consumer<T> handler, Predicate<JsonObject> validater, Function<JsonObject, T> loader, Function<T, JsonElement> serializer){
+    public OldProperty(String key, T defaultValue, Consumer<T> handler, Predicate<JsonObject> validater, Function<JsonObject, T> loader, Function<T, JsonElement> serializer){
         this.key = key;
         this.defaultValue = defaultValue;
         this.handler = handler;

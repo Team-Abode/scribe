@@ -37,8 +37,6 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
     protected void apply(Map<ResourceLocation, AnimationData> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         ANIMATIONS.clear();
         ANIMATIONS.putAll(object);
-
-        ANIMATIONS.forEach((location, data) -> Scribe.LOGGER.info(location.toString()));
     }
 
     public ResourceLocation getFabricId() {

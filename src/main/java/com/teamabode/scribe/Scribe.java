@@ -17,7 +17,6 @@ public class Scribe implements ModInitializer {
         LOGGER.info("Initializing Scribe...");
 
         ScribeFeatures.register();
-
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(ANIMATION_MANAGER);
     }
 }
