@@ -56,6 +56,7 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
+			artifactId = "${project.archives_base_name}"
 			from components.java
 		}
 	}
@@ -64,8 +65,8 @@ publishing {
 			name = "GithubPackages"
 			url = uri("https://maven.pkg.github.com/team-abode/scribe-wip")
 			credentials {
-				username = System.getenv("USERNAME")
-				password = System.getenv("TOKEN")
+				username = "ExDrill"
+				password = "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"
 			}
 		}
 	}
