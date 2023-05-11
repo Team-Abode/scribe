@@ -17,5 +17,5 @@ public class ScribeFeatures {
         return Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(Scribe.MOD_ID, name), feature);
     }
 
-    public static void register() {}
+    public static void init() {}
 }

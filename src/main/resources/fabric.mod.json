@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "com.teamabode.scribe.Scribe"
+    ],
+    "client": [
+      "com.teamabode.scribe.client.ScribeClient"
     ]
   },
   "mixins": [

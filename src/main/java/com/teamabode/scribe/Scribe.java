@@ -1,10 +1,14 @@
 package com.teamabode.scribe;
 
+import com.teamabode.scribe.common.entity.ScribeBoatType;
 import com.teamabode.scribe.core.api.animation.AnimationManager;
-import com.teamabode.scribe.core.registry.ScribeFeatures;
+import com.teamabode.scribe.core.registry.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +20,21 @@ public class Scribe implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing Scribe...");
 
-        ScribeFeatures.register();
+        ScribeRegistries.init();
+        ScribeBuiltInRegistries.init();
+        ScribeDataSerializers.init();
+
+        ScribeFeatures.init();
+        ScribeItems.init();
+        ScribeBoatType.init();
+        ScribeEntities.init();
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(entries -> {
+            if (entries.getContext().hasPermissions()) {
+                entries.addAfter(Items.DEBUG_STICK, ScribeItems.DEFAULT_BOAT, ScribeItems.DEFAULT_CHEST_BOAT);
+            }
+        });
+
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(ANIMATION_MANAGER);
     }
 }
