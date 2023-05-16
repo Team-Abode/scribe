@@ -1,5 +1,6 @@
 package com.teamabode.scribe.common.entity;
 
+import com.teamabode.scribe.common.item.ScribeBoatItem;
 import com.teamabode.scribe.core.registry.ScribeBuiltInRegistries;
 import com.teamabode.scribe.core.registry.ScribeDataSerializers;
 import com.teamabode.scribe.core.registry.ScribeEntities;
@@ -60,12 +61,20 @@ public class ScribeChestBoat extends ChestBoat {
         return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.CHEST_BOAT)));
     }
 
+    @Override
     public Item getDropItem() {
-        return this.getBoatType().chestBoatItem();
+        if (ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.containsKey(this.getBoatType())) {
+            return ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.get(this.getBoatType());
+        }
+        return super.getDropItem();
     }
 
+    @Override
     public ItemStack getPickResult() {
-        return new ItemStack(this.getBoatType().chestBoatItem());
+        if (ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.containsKey(this.getBoatType())) {
+            return new ItemStack(ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.get(this.getBoatType()));
+        }
+        return super.getPickResult();
     }
 
     public void setBoatType(ScribeBoatType type) {

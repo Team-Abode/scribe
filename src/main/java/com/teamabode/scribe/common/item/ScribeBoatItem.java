@@ -1,8 +1,10 @@
 package com.teamabode.scribe.common.item;
 
+import com.google.common.collect.Maps;
 import com.teamabode.scribe.common.entity.ScribeBoat;
 import com.teamabode.scribe.common.entity.ScribeBoatType;
 import com.teamabode.scribe.common.entity.ScribeChestBoat;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,9 +22,12 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class ScribeBoatItem extends Item {
+    public static final Map<ScribeBoatType, Item> TYPE_TO_BOAT_ITEM = Maps.newHashMap();
+    public static final Map<ScribeBoatType, Item> TYPE_TO_CHEST_BOAT_ITEM = Maps.newHashMap();
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
 
     private final ScribeBoatType type;
@@ -32,6 +37,9 @@ public class ScribeBoatItem extends Item {
         super(properties);
         this.type = type;
         this.hasChest = hasChest;
+
+        if (!hasChest) TYPE_TO_BOAT_ITEM.put(type, this);
+        else TYPE_TO_CHEST_BOAT_ITEM.put(type, this);
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
