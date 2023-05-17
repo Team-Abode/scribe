@@ -1,4 +1,4 @@
-package com.teamabode.scribe.common.entity;
+package com.teamabode.scribe.common.entity.boat;
 
 import com.teamabode.scribe.Scribe;
 import com.teamabode.scribe.core.registry.ScribeBuiltInRegistries;

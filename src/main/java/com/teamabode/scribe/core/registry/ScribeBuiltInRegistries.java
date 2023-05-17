@@ -1,6 +1,6 @@
 package com.teamabode.scribe.core.registry;
 
-import com.teamabode.scribe.common.entity.ScribeBoatType;
+import com.teamabode.scribe.common.entity.boat.ScribeBoatType;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.core.Registry;
 

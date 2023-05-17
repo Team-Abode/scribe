@@ -1,4 +1,4 @@
-package com.teamabode.scribe.common.entity;
+package com.teamabode.scribe.common.entity.boat;
 
 import com.teamabode.scribe.common.item.ScribeBoatItem;
 import com.teamabode.scribe.core.registry.ScribeBuiltInRegistries;
@@ -13,20 +13,19 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class ScribeChestBoat extends ChestBoat {
-    private static final EntityDataAccessor<ScribeBoatType> BOAT_TYPE = SynchedEntityData.defineId(ScribeChestBoat.class, ScribeDataSerializers.BOAT_TYPE);
+public class ScribeBoat extends Boat implements ScribeBoatAccessor {
+    private static final EntityDataAccessor<ScribeBoatType> BOAT_TYPE = SynchedEntityData.defineId(ScribeBoat.class, ScribeDataSerializers.BOAT_TYPE);
 
-    public ScribeChestBoat(EntityType<? extends Boat> entityType, Level level) {
+    public ScribeBoat(EntityType<? extends Boat> entityType, Level level) {
         super(entityType, level);
     }
 
-    public ScribeChestBoat(Level level, double x, double y, double z) {
-        this(ScribeEntities.SCRIBE_CHEST_BOAT, level);
+    public ScribeBoat(Level level, double x, double y, double z) {
+        this(ScribeEntities.SCRIBE_BOAT, level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -35,6 +34,7 @@ public class ScribeChestBoat extends ChestBoat {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.getDisplayName();
         this.entityData.define(BOAT_TYPE, ScribeBoatType.DEFAULT);
     }
 
@@ -58,21 +58,21 @@ public class ScribeChestBoat extends ChestBoat {
     }
 
     public Component getDescription() {
-        return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.CHEST_BOAT)));
+        return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.BOAT)));
     }
 
     @Override
     public Item getDropItem() {
-        if (ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.containsKey(this.getBoatType())) {
-            return ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.get(this.getBoatType());
+        if (ScribeBoatItem.TYPE_TO_BOAT_ITEM.containsKey(this.getBoatType())) {
+            return ScribeBoatItem.TYPE_TO_BOAT_ITEM.get(this.getBoatType());
         }
         return super.getDropItem();
     }
 
     @Override
     public ItemStack getPickResult() {
-        if (ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.containsKey(this.getBoatType())) {
-            return new ItemStack(ScribeBoatItem.TYPE_TO_CHEST_BOAT_ITEM.get(this.getBoatType()));
+        if (ScribeBoatItem.TYPE_TO_BOAT_ITEM.containsKey(this.getBoatType())) {
+            return new ItemStack(ScribeBoatItem.TYPE_TO_BOAT_ITEM.get(this.getBoatType()));
         }
         return super.getPickResult();
     }

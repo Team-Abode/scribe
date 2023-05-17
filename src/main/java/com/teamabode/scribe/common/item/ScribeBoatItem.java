@@ -1,10 +1,10 @@
 package com.teamabode.scribe.common.item;
 
 import com.google.common.collect.Maps;
-import com.teamabode.scribe.common.entity.ScribeBoat;
-import com.teamabode.scribe.common.entity.ScribeBoatType;
-import com.teamabode.scribe.common.entity.ScribeChestBoat;
-import net.minecraft.core.registries.BuiltInRegistries;
+import com.teamabode.scribe.common.entity.boat.ScribeBoat;
+import com.teamabode.scribe.common.entity.boat.ScribeBoatAccessor;
+import com.teamabode.scribe.common.entity.boat.ScribeBoatType;
+import com.teamabode.scribe.common.entity.boat.ScribeChestBoat;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -61,13 +61,7 @@ public class ScribeBoatItem extends Item {
         }
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             Boat boat = this.getBoat(level, hitResult);
-
-            if (boat instanceof ScribeBoat scribeBoat) {
-                scribeBoat.setBoatType(this.type);
-            }
-            if (boat instanceof ScribeChestBoat scribeChestBoat) {
-                scribeChestBoat.setBoatType(this.type);
-            }
+            ((ScribeBoatAccessor) boat).setBoatType(this.type);
             boat.setYRot(player.getYRot());
             if (!level.noCollision(boat, boat.getBoundingBox())) {
                 return InteractionResultHolder.fail(itemStack);

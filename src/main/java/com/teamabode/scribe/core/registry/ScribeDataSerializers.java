@@ -1,6 +1,6 @@
 package com.teamabode.scribe.core.registry;
 
-import com.teamabode.scribe.common.entity.ScribeBoatType;
+import com.teamabode.scribe.common.entity.boat.ScribeBoatType;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 

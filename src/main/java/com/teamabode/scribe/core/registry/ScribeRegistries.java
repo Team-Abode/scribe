@@ -1,7 +1,7 @@
 package com.teamabode.scribe.core.registry;
 
 import com.teamabode.scribe.Scribe;
-import com.teamabode.scribe.common.entity.ScribeBoatType;
+import com.teamabode.scribe.common.entity.boat.ScribeBoatType;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
