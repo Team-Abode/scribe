@@ -19,6 +19,8 @@ public class Group {
         return group.get(key).getAsInt();
     }
 
+    public float getFloatProperty(String key) { return group.get(key).getAsFloat(); }
+
     public boolean getBooleanProperty(String key) {
         return group.get(key).getAsBoolean();
     }

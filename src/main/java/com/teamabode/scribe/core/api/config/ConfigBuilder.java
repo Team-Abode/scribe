@@ -26,6 +26,11 @@ public class ConfigBuilder {
         return this;
     }
 
+    public ConfigBuilder addFloatProperty(String key, float defaultValue) {
+        root.addProperty(key, defaultValue);
+        return this;
+    }
+
     public ConfigBuilder addGroup(Group group) {
         root.add(group.getName(), group.getGroupObject());
         return this;

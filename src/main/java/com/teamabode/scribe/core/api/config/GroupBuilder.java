@@ -25,6 +25,11 @@ public class GroupBuilder {
         return this;
     }
 
+    public GroupBuilder addFloatProperty(String key, float defaultValue) {
+        group.addProperty(key, defaultValue);
+        return this;
+    }
+
     public GroupBuilder addGroup(String key, Group group) {
         this.group.add(key, group.getGroupObject());
         return this;

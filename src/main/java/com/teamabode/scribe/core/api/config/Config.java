@@ -59,6 +59,8 @@ public class Config {
         return root.get(key).getAsInt();
     }
 
+    public float getFloatProperty(String key) { return root.get(key).getAsFloat(); }
+
     public boolean getBooleanProperty(String key) {
         return root.get(key).getAsBoolean();
     }
