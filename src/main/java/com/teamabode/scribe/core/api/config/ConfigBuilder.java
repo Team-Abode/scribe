@@ -26,6 +26,11 @@ public class ConfigBuilder {
         return this;
     }
 
+    public ConfigBuilder addGroup(Group group) {
+        root.add(group.getName(), group.getGroupObject());
+        return this;
+    }
+
     public Config build() {
         Config config = new Config(fileName, root);
         config.run();

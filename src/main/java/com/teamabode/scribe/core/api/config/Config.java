@@ -16,11 +16,11 @@ public class Config {
     private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    private final String fileName;
+    private final String modId;
     private JsonObject root;
 
-    protected Config(String fileName, JsonObject root) {
-        this.fileName = fileName;
+    protected Config(String modId, JsonObject root) {
+        this.modId = modId;
         this.root = root;
     }
 
@@ -63,7 +63,11 @@ public class Config {
         return root.get(key).getAsBoolean();
     }
 
+    public Group getGroup(String key) {
+        return new Group(key, root.get(key).getAsJsonObject());
+    }
+
     private File getFile() {
-        return CONFIG_DIR.resolve(fileName + ".json").toFile();
+        return CONFIG_DIR.resolve(modId + ".json").toFile();
     }
 }
