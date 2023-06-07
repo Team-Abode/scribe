@@ -1,5 +1,6 @@
 package com.teamabode.scribe.common.entity.boat;
 
+import com.teamabode.scribe.core.registry.ScribeEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
@@ -28,9 +29,11 @@ public class ScribeBoatDispenseItemBehavior extends DefaultDispenseItemBehavior 
     public ItemStack execute(BlockSource source, ItemStack stack) {
         Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
         Level level = source.getLevel();
-        double spawnX = source.x() + (double)((float)direction.getStepX() * 1.125F);
-        double spawnY = source.y() + (double)((float)direction.getStepY() * 1.125F);
-        double spawnZ = source.z() + (double)((float)direction.getStepZ() * 1.125F);
+        double boatWidth = 0.5625 + ScribeEntities.SCRIBE_BOAT.getWidth() / 2.0d;
+
+        double spawnX = source.x() + ((float)direction.getStepX() * boatWidth);
+        double spawnY = source.y() + (double)((float)direction.getStepY() * 1.125f);
+        double spawnZ = source.z() + ((float)direction.getStepZ() * boatWidth);
         BlockPos pos = source.getPos().relative(direction);
         double yOffset;
 
@@ -44,6 +47,7 @@ public class ScribeBoatDispenseItemBehavior extends DefaultDispenseItemBehavior 
         }
         Boat boat = this.isChestBoat ? new ScribeChestBoat(level, spawnX, spawnY + yOffset, spawnZ) : new ScribeBoat(level, spawnX, spawnY + yOffset, spawnZ);
         ((ScribeBoatAccessor) boat).setBoatType(this.type);
+        boat.setYRot(direction.toYRot());
 
         level.addFreshEntity(boat);
         stack.shrink(1);
