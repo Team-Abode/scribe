@@ -1,7 +1,10 @@
 package com.teamabode.scribe.client;
 
+import com.teamabode.scribe.Scribe;
 import com.teamabode.scribe.client.renderer.ScribeBoatRenderer;
 import com.teamabode.scribe.core.api.animation.AnimationManager;
+import com.teamabode.scribe.core.api.config.Config;
+import com.teamabode.scribe.core.api.config.ConfigBuilder;
 import com.teamabode.scribe.core.registry.ScribeEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -22,5 +25,7 @@ public class ScribeClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ScribeBoatRenderer.CHEST_BOAT, ChestBoatModel::createBodyModel);
 
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(ANIMATION_MANAGER);
+
+
     }
 }

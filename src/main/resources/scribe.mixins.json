@@ -5,6 +5,10 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
+    "client.CamelModelMixin",
+    "client.FrogModelMixin",
+    "client.SnifferModelMixin",
+    "client.WardenModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
