@@ -1,0 +1,100 @@
+{
+	"length": 3,
+	"looping": false,
+	"bones": {
+		"croaking_body": {
+			"position": {
+				"0": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"3": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"0.375": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"0.4167": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"0.4583": {
+					"interpolation": "linear",
+					"value": [0, 1, 0]
+				},
+				"2.9583": {
+					"interpolation": "linear",
+					"value": [0, 1, 0]
+				}
+			},
+			"scale": {
+				"0": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"3": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"0.375": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
+				},
+				"0.4167": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				},
+				"0.4583": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				},
+				"0.5417": {
+					"interpolation": "linear",
+					"value": [1.3, 2.1, 1.6]
+				},
+				"0.625": {
+					"interpolation": "linear",
+					"value": [1.3, 2.1, 1.6]
+				},
+				"0.7083": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				},
+				"2.25": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				},
+				"2.3333": {
+					"interpolation": "linear",
+					"value": [1.3, 2.1, 1.6]
+				},
+				"2.4167": {
+					"interpolation": "linear",
+					"value": [1.3, 2.1, 1.6]
+				},
+				"2.5": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				},
+				"2.5833": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				},
+				"2.6667": {
+					"interpolation": "linear",
+					"value": [1.3, 2.1, 1.6]
+				},
+				"2.875": {
+					"interpolation": "linear",
+					"value": [1.3, 2.1, 1.8]
+				},
+				"2.9583": {
+					"interpolation": "linear",
+					"value": [1, 1, 1]
+				}
+			}
+		}
+	}
+}

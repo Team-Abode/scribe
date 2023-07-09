@@ -5,6 +5,7 @@ import com.teamabode.scribe.common.entity.boat.ScribeBoatType;
 import com.teamabode.scribe.core.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -34,5 +35,9 @@ public class Scribe implements ModInitializer {
         });
         DispenserBlock.registerBehavior(ScribeItems.DEFAULT_BOAT, new ScribeBoatDispenseItemBehavior(ScribeBoatType.DEFAULT));
         DispenserBlock.registerBehavior(ScribeItems.DEFAULT_CHEST_BOAT, new ScribeBoatDispenseItemBehavior(ScribeBoatType.DEFAULT, true));
+    }
+
+    public static ResourceLocation id(String name) {
+        return new ResourceLocation(MOD_ID, name);
     }
 }
