@@ -17,10 +17,9 @@ import net.minecraft.server.packs.PackType;
 public class ScribeClient implements ClientModInitializer {
     public static final AnimationManager ANIMATION_MANAGER = new AnimationManager();
 
-    public static final Config CONFIG = new ConfigBuilder(Scribe.MOD_ID + ".client")
+    public static final Config CONFIG = new ConfigBuilder(Scribe.MOD_ID)
             .addBooleanProperty("override_vanilla_animations", true)
             .build();
-
 
     public void onInitializeClient() {
         EntityRendererRegistry.register(ScribeEntities.SCRIBE_BOAT, context -> new ScribeBoatRenderer(context, false));

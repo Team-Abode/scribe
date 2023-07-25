@@ -20,6 +20,7 @@ public class Config {
 
     private final String fileName;
     private JsonObject root;
+
     private Map<String, Group> groups = new HashMap<>();
     private Map<String, Object> defaults = new HashMap<>();
 
@@ -28,7 +29,7 @@ public class Config {
         this.root = root;
     }
 
-    protected void setMaps(Map<String, Group> groups, Map<String, Object> defaults) {
+    protected void setDefaults(Map<String, Group> groups, Map<String, Object> defaults) {
         this.groups = groups;
         this.defaults = defaults;
     }

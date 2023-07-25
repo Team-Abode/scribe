@@ -77,7 +77,6 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
 
                 timestamps.forEach((timestamp, keyframe) -> {
                     keyframes[current.get()] = new Keyframe(Float.parseFloat(timestamp), ParseUtils.getTargetVec(keyframe.transformation(), target), ParseUtils.getInterpolation(keyframe.interpolation()));
-
                     current.addAndGet(1);
                 });
                 builder.addAnimation(bone, new AnimationChannel(ParseUtils.getTarget(target), keyframes));

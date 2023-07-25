@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class ConfigBuilder {
     private final String fileName;
@@ -39,7 +40,9 @@ public class ConfigBuilder {
         return this;
     }
 
-    public ConfigBuilder addGroup(Group group) {
+    public ConfigBuilder addGroup(String name, Function<GroupBuilder, GroupBuilder> builder) {
+        Group group = builder.apply(new GroupBuilder(name)).build();
+
         root.add(group.getName(), group.getGroupObject());
         groups.put(group.getName(), group);
         return this;
@@ -47,7 +50,7 @@ public class ConfigBuilder {
 
     public Config build() {
         Config config = new Config(fileName, root);
-        config.setMaps(groups, defaults);
+        config.setDefaults(groups, defaults);
         config.run();
         return config;
     }

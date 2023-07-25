@@ -11,7 +11,7 @@ public class GroupBuilder {
     private final Map<String, Group> groups = new HashMap<>();
     private final Map<String, Object> defaults = new HashMap<>();
 
-    public GroupBuilder(String name) {
+    protected GroupBuilder(String name) {
         this.name = name;
     }
 
