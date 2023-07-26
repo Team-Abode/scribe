@@ -29,7 +29,5 @@ public class ScribeClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ScribeBoatRenderer.CHEST_BOAT, ChestBoatModel::createBodyModel);
 
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(ANIMATION_MANAGER);
-
-
     }
 }
