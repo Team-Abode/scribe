@@ -53,13 +53,6 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
     protected void apply(Map<ResourceLocation, AnimationHolder> registry, ResourceManager resourceManager, ProfilerFiller profiler) {
         ANIMATIONS.clear();
         ANIMATIONS.putAll(registry);
-
-        ANIMATIONS.forEach((location, animation) -> {
-            StringBuilder boneList = new StringBuilder();
-            var bones = animation.bones();
-            bones.forEach((bone, timestamps) -> boneList.append("   ").append(bone).append("\n"));
-            Scribe.LOGGER.info("Loading animation: {}\nBone data: \n{}", location.toString(), boneList);
-        });
     }
 
     public static AnimationDefinition createAnimation(ResourceLocation location) {
