@@ -26,7 +26,7 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
     protected Map<ResourceLocation, AnimationHolder> prepare(ResourceManager resourceManager, ProfilerFiller profiler) {
         Map<ResourceLocation, AnimationHolder> registry = Maps.newHashMap();
 
-        for (var resourceEntry : resourceManager.listResources("animations", location -> location.getPath().endsWith(".json")).entrySet()) {
+        for (var resourceEntry : resourceManager.listResources("scribe_animations", location -> location.getPath().endsWith(".json")).entrySet()) {
             ResourceLocation location = resourceEntry.getKey();
             String path = location.getPath();
 
