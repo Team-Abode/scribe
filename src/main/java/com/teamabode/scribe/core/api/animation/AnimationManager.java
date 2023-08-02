@@ -30,7 +30,7 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
             ResourceLocation location = resourceEntry.getKey();
             String path = location.getPath();
 
-            ResourceLocation trueLocation = new ResourceLocation(location.getNamespace(), path.substring(11, path.length() - 5));
+            ResourceLocation trueLocation = new ResourceLocation(location.getNamespace(), path.substring(18, path.length() - 5));
             Resource resource = resourceEntry.getValue();
 
             try (BufferedReader reader = resource.openAsReader()) {

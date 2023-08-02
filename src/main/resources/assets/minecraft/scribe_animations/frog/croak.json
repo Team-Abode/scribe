@@ -34,10 +34,6 @@
 					"interpolation": "linear",
 					"value": [0, 0, 0]
 				},
-				"3": {
-					"interpolation": "linear",
-					"value": [0, 0, 0]
-				},
 				"0.375": {
 					"interpolation": "linear",
 					"value": [0, 0, 0]
@@ -93,6 +89,10 @@
 				"2.9583": {
 					"interpolation": "linear",
 					"value": [1, 1, 1]
+				},
+				"3": {
+					"interpolation": "linear",
+					"value": [0, 0, 0]
 				}
 			}
 		}

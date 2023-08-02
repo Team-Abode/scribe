@@ -2,15 +2,25 @@ package com.teamabode.scribe;
 
 import com.teamabode.scribe.common.entity.boat.ScribeBoatDispenseItemBehavior;
 import com.teamabode.scribe.common.entity.boat.ScribeBoatType;
+import com.teamabode.scribe.core.api.misc.BlockEntityAdditions;
 import com.teamabode.scribe.core.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class Scribe implements ModInitializer {
     public static final String MOD_ID = "scribe";

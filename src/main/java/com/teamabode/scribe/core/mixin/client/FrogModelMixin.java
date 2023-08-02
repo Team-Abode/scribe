@@ -5,18 +5,24 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.FrogModel;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(FrogModel.class)
 public class FrogModelMixin {
-
     private static final ResourceLocation FROG_CROAK = new ResourceLocation("frog/croak");
+
     private static final ResourceLocation FROG_WALK = new ResourceLocation("frog/walk");
+
     private static final ResourceLocation FROG_JUMP = new ResourceLocation("frog/jump");
+
     private static final ResourceLocation FROG_TONGUE = new ResourceLocation("frog/tongue");
+
     private static final ResourceLocation FROG_SWIM = new ResourceLocation("frog/swim");
+
     private static final ResourceLocation FROG_IDLE_WATER = new ResourceLocation("frog/idle_water");
+
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0), index = 1)
     private AnimationDefinition animateFrogJump(AnimationDefinition originalParam) {
