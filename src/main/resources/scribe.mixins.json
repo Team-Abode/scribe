@@ -1,12 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.teamabode.scribe.core.mixin",
+  "package": "com.teamabode.sketch.core.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BlockEntityTypeMixin"
   ],
-  "client": [],
+  "client": [
+    "client.FrogModelMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

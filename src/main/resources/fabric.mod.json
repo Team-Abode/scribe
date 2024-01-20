@@ -3,24 +3,24 @@
   "id": "scribe",
   "version": "${version}",
 
-  "name": "Scribe",
+  "name": "Sketch",
   "description": "Library used for all of Team Abode's mods",
   "authors": [
     "Team Abode"
   ],
   "contact": {
     "homepage": "https://twitter.com/TeamAbodeMC",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/Team-Abode/sketch"
   },
   "license": "All Rights Reserved",
-  "icon": "assets/scribe/icon.png",
+  "icon": "assets/sketch/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.teamabode.scribe.Scribe"
+      "com.teamabode.sketch.Sketch"
     ],
     "client": [
-      "com.teamabode.scribe.client.ScribeClient"
+      "com.teamabode.sketch.client.SketchClient"
     ]
   },
   "mixins": [
