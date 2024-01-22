@@ -21,12 +21,13 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AnimationManager extends SimplePreparableReloadListener<Map<ResourceLocation, AnimationDefinition>> implements IdentifiableResourceReloadListener {
+    private static final AnimationDefinition DEFAULT_ANIMATION = AnimationDefinition.Builder.withLength(0.0f).build();
     private static final Map<ResourceLocation, AnimationDefinition> ANIMATIONS = Maps.newHashMap();
 
     protected Map<ResourceLocation, AnimationDefinition> prepare(ResourceManager resourceManager, ProfilerFiller profiler) {
         Map<ResourceLocation, AnimationDefinition> registry = Maps.newHashMap();
 
-        for (var resourceEntry : resourceManager.listResources("scribe_animations", location -> location.getPath().endsWith(".json")).entrySet()) {
+        for (var resourceEntry : resourceManager.listResources("sketch_animations", location -> location.getPath().endsWith(".json")).entrySet()) {
             ResourceLocation location = resourceEntry.getKey();
             String path = location.getPath();
 
@@ -35,16 +36,18 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
 
             try (BufferedReader reader = resource.openAsReader()) {
                 var result = AnimationHolder.CODEC.decode(JsonOps.INSTANCE, JsonParser.parseReader(reader));
+                AnimationDefinition animation = createAnimation(result.result().get().getFirst());
 
                 if (result.error().isPresent()) {
                     throw new JsonParseException(result.error().get().message());
                 }
-                if (registry.put(trueLocation, createAnimation(result.result().get().getFirst())) != null) {
+                if (registry.put(trueLocation, animation) != null) {
                     Sketch.LOGGER.warn("Duplicate animation found: {}", trueLocation);
                 }
             }
             catch (Exception exception) {
                 Sketch.LOGGER.warn("Animation could not load: {}", resourceEntry.getKey(), exception);
+                registry.put(trueLocation, DEFAULT_ANIMATION);
             }
         }
         return registry;
