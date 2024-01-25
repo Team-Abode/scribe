@@ -13,9 +13,7 @@ public class BlockEntityTypeMixin {
 
     @Inject(method = "isValid", at = @At("HEAD"), cancellable = true)
     private void isValid(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        var thisType = BlockEntityType.class.cast(this);
-        BlockEntityAdditions.ADDITIONS.forEach((type, blocks) -> blocks.forEach(block -> {
-            if (thisType == type && state.getBlock() == block) cir.setReturnValue(true);
-        }));
+        var $this = BlockEntityType.class.cast(this);
+        BlockEntityAdditions.ADDITIONS.get($this).forEach(block -> cir.setReturnValue(true));
     }
 }

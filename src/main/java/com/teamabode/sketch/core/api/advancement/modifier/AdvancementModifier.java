@@ -1,4 +1,4 @@
-package com.teamabode.sketch.core.api.advancement;
+package com.teamabode.sketch.core.api.advancement.modifier;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

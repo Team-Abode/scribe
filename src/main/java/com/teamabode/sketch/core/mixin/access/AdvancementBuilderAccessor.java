@@ -7,6 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Advancement.Builder.class)
 public interface AdvancementBuilderAccessor {
 
-    @Accessor
+    @Accessor(value = "requirements")
     String[][] getRequirements();
+
+    @Accessor(value = "requirements")
+    void setRequirements(String[][] requirements);
 }
