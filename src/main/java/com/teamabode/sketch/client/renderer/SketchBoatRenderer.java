@@ -37,11 +37,10 @@ public class SketchBoatRenderer extends EntityRenderer<Boat> {
     public SketchBoatRenderer(EntityRendererProvider.Context context, boolean chestBoat) {
         super(context);
 
-        this.boatResources = SketchBuiltInRegistries.BOAT_TYPE.stream().collect(ImmutableMap.toImmutableMap(type -> {
-            return type;
-        }, type -> {
-            return Pair.of(getTextureLocation(type, chestBoat), createBoatModel(context, type, chestBoat));
-        }));
+        this.boatResources = SketchBuiltInRegistries.BOAT_TYPE.stream().collect(ImmutableMap.toImmutableMap(
+                type -> type,
+                type -> Pair.of(getTextureLocation(type, chestBoat), createBoatModel(context, type, chestBoat))
+        ));
     }
 
     public void render(Boat boat, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {

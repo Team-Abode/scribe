@@ -40,7 +40,6 @@ public class SketchBoat extends Boat implements SketchBoatAccessor {
 
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-
         compound.putString("sketch:boat_type", SketchBuiltInRegistries.BOAT_TYPE.getKey(this.getBoatType()).toString());
     }
 

@@ -16,8 +16,6 @@ import net.minecraft.server.packs.PackType;
 public class SketchClient implements ClientModInitializer {
     public static final AnimationManager ANIMATION_MANAGER = new AnimationManager();
 
-    public static final Config CONFIG = new ConfigBuilder("sketch.client").addBooleanProperty("override_vanilla_animations", true).build();
-
     public void onInitializeClient() {
         EntityRendererRegistry.register(SketchEntities.SKETCH_BOAT, context -> new SketchBoatRenderer(context, false));
         EntityRendererRegistry.register(SketchEntities.SKETCH_CHEST_BOAT, context -> new SketchBoatRenderer(context, true));

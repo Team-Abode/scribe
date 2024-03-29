@@ -2,8 +2,8 @@ package com.teamabode.sketch.common.entity.boat;
 
 import com.teamabode.sketch.core.registry.SketchEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -27,14 +27,14 @@ public class SketchBoatDispenserItemBehavior extends DefaultDispenseItemBehavior
     }
 
     public ItemStack execute(BlockSource source, ItemStack stack) {
-        Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
-        Level level = source.getLevel();
+        Direction direction = source.state().getValue(DispenserBlock.FACING);
+        Level level = source.level();
         double boatWidth = 0.5625 + SketchEntities.SKETCH_BOAT.getWidth() / 2.0d;
 
-        double spawnX = source.x() + ((float)direction.getStepX() * boatWidth);
-        double spawnY = source.y() + (double)((float)direction.getStepY() * 1.125f);
-        double spawnZ = source.z() + ((float)direction.getStepZ() * boatWidth);
-        BlockPos pos = source.getPos().relative(direction);
+        double spawnX = source.pos().getX() + ((float)direction.getStepX() * boatWidth);
+        double spawnY = source.pos().getY() + (double)((float)direction.getStepY() * 1.125f);
+        double spawnZ = source.pos().getZ() + ((float)direction.getStepZ() * boatWidth);
+        BlockPos pos = source.pos().relative(direction);
         double yOffset;
 
         if (level.getFluidState(pos).is(FluidTags.WATER)) {
@@ -55,6 +55,6 @@ public class SketchBoatDispenserItemBehavior extends DefaultDispenseItemBehavior
     }
 
     protected void playSound(BlockSource source) {
-        source.getLevel().levelEvent(1000, source.getPos(), 0);
+        source.level().levelEvent(1000, source.pos(), 0);
     }
 }
