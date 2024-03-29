@@ -106,6 +106,6 @@ public class SketchBoatRenderer extends EntityRenderer<Boat> {
         if (boat instanceof SketchChestBoat scribeBoat) {
             return boatResources.get(scribeBoat.getBoatType());
         }
-        return boatResources.get(SketchBoatType.DEFAULT);
+        return boatResources.get(SketchBoatType.FALLBACK);
     }
 }

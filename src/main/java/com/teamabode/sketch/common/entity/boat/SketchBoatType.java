@@ -6,7 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
 public record SketchBoatType(String name) {
-    public static final SketchBoatType DEFAULT = register("default");
+    public static final SketchBoatType FALLBACK = register("default");
 
     public static void init() {}
 

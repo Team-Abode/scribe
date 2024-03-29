@@ -4,15 +4,16 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.teamabode.sketch.core.api.advancement.AdvancementEvents;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.level.block.Blocks;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AdvancementModifier {
     private final ResourceLocation id;
@@ -70,5 +71,20 @@ public class AdvancementModifier {
             }
             return new Builder(advancement, criteria, requirementModifiers);
         }
+    }
+
+    public static void example() {
+        AdvancementEvents.MODIFY.register((resourceManager, advancementManager, id, builder) -> {
+            if (Objects.equals(id, new ResourceLocation("husbandry/plant_seed"))) {
+                builder.addCriterion("placed_stone", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(Blocks.STONE));
+
+                String[][] lists = {
+                        {"placed_stone"}
+                };
+
+                RequirementModifier modifier = new AddListModifier(lists);
+                modifier.modify(builder);
+            }
+        });
     }
 }

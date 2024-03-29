@@ -27,36 +27,13 @@ public class Sketch implements ModInitializer {
 
     public void onInitialize() {
         LOGGER.info("Initializing Sketch");
-
         SketchRegistries.init();
         SketchBuiltInRegistries.init();
         SketchDataSerializers.init();
-
         SketchFeatures.init();
         SketchItems.init();
         SketchBoatType.init();
         SketchEntities.init();
-
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(entries -> {
-            if (entries.getContext().hasPermissions()) {
-                entries.addAfter(Items.DEBUG_STICK, SketchItems.DEFAULT_BOAT, SketchItems.DEFAULT_CHEST_BOAT);
-            }
-        });
-
-        AdvancementEvents.MODIFY.register((resourceManager, advancementManager, id, builder) -> {
-
-            if (Objects.equals(id, new ResourceLocation("husbandry/plant_seed"))) {
-                builder.addCriterion("placed_stone", ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(Blocks.STONE));
-
-                String[][] lists = {
-                        {"placed_stone"}
-                };
-
-                RequirementModifier modifier = new AddListModifier(lists);
-                modifier.modify(builder);
-                LOGGER.info(Arrays.deepToString(modifier.getRequirements(builder)));
-            }
-        });
     }
 
     public static ResourceLocation id(String name) {

@@ -35,7 +35,7 @@ public class SketchChestBoat extends ChestBoat implements SketchBoatAccessor {
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(BOAT_TYPE, SketchBoatType.DEFAULT);
+        this.entityData.define(BOAT_TYPE, SketchBoatType.FALLBACK);
     }
 
     protected void addAdditionalSaveData(CompoundTag compound) {

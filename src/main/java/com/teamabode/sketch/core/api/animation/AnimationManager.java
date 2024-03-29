@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AnimationManager extends SimplePreparableReloadListener<Map<ResourceLocation, AnimationDefinition>> implements IdentifiableResourceReloadListener {
-    private static final AnimationDefinition DEFAULT_ANIMATION = AnimationDefinition.Builder.withLength(0.0f).build();
+    private static final AnimationDefinition FALLBACK_ANIMATION = AnimationDefinition.Builder.withLength(0.0f).build();
     private static final Map<ResourceLocation, AnimationDefinition> ANIMATIONS = Maps.newHashMap();
 
     protected Map<ResourceLocation, AnimationDefinition> prepare(ResourceManager resourceManager, ProfilerFiller profiler) {
@@ -47,7 +47,7 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
             }
             catch (Exception exception) {
                 Sketch.LOGGER.warn("Animation could not load: {}", resourceEntry.getKey(), exception);
-                registry.put(trueLocation, DEFAULT_ANIMATION);
+                registry.put(trueLocation, FALLBACK_ANIMATION);
             }
         }
         return registry;
@@ -73,7 +73,7 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
                 AtomicInteger current = new AtomicInteger(0);
 
                 timestamps.forEach((timestamp, keyframe) -> {
-                    keyframes[current.get()] = new Keyframe(Float.parseFloat(timestamp), ParseUtils.getTargetVec(keyframe.transformation(), target), ParseUtils.getInterpolation(keyframe.interpolation()));
+                    keyframes[current.get()] = new Keyframe(Float.parseFloat(timestamp), target.transformTarget(keyframe.transformation()), keyframe.interpolation().getInterpolationFromType());
                     current.addAndGet(1);
                 });
                 builder.addAnimation(bone, new AnimationChannel(target.getTarget(), keyframes));
@@ -84,6 +84,6 @@ public class AnimationManager extends SimplePreparableReloadListener<Map<Resourc
     }
 
     public ResourceLocation getFabricId() {
-        return new ResourceLocation(Sketch.MOD_ID, "animation_manager");
+        return Sketch.id("animation_manager");
     }
 }
