@@ -36,8 +36,8 @@ public class SketchBoatItem extends Item {
         this.type = type;
         this.hasChest = hasChest;
 
-        if (!hasChest) TYPE_TO_BOAT_ITEM.put(type, this);
-        else TYPE_TO_CHEST_BOAT_ITEM.put(type, this);
+        if (hasChest) TYPE_TO_CHEST_BOAT_ITEM.put(type, this);
+        else TYPE_TO_BOAT_ITEM.put(type, this);
         DispenserBlock.registerBehavior(this, new SketchBoatDispenserItemBehavior(type, hasChest));
     }
 

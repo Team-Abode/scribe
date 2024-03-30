@@ -4,13 +4,14 @@ import com.teamabode.sketch.common.item.SketchBoatItem;
 import com.teamabode.sketch.core.registry.SketchBuiltInRegistries;
 import com.teamabode.sketch.core.registry.SketchDataSerializers;
 import com.teamabode.sketch.core.registry.SketchEntities;
+import com.teamabode.sketch.core.registry.SketchRegistries;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
@@ -32,32 +33,28 @@ public class SketchBoat extends Boat implements SketchBoatAccessor {
         this.zo = z;
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.getDisplayName();
         this.entityData.define(BOAT_TYPE, SketchBoatType.FALLBACK);
     }
 
+    @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putString("sketch:boat_type", SketchBuiltInRegistries.BOAT_TYPE.getKey(this.getBoatType()).toString());
+        this.addSaveData(compound);
     }
 
+    @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-
-        SketchBoatType boatType = SketchBuiltInRegistries.BOAT_TYPE.get(ResourceLocation.tryParse(compound.getString("sketch:boat_type")));
-        if (boatType != null) {
-            this.setBoatType(boatType);
-        }
+        this.readSaveData(compound);
     }
 
+    @Override
     protected Component getTypeName() {
-        return getDescription();
-    }
-
-    public Component getDescription() {
-        return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.BOAT)));
+        return this.getDescription();
     }
 
     @Override
@@ -71,9 +68,13 @@ public class SketchBoat extends Boat implements SketchBoatAccessor {
     @Override
     public ItemStack getPickResult() {
         if (SketchBoatItem.TYPE_TO_BOAT_ITEM.containsKey(this.getBoatType())) {
-            return new ItemStack(SketchBoatItem.TYPE_TO_BOAT_ITEM.get(this.getBoatType()));
+            return SketchBoatItem.TYPE_TO_BOAT_ITEM.get(this.getBoatType()).getDefaultInstance();
         }
         return super.getPickResult();
+    }
+
+    public Component getDescription() {
+        return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.BOAT)));
     }
 
     public void setBoatType(SketchBoatType type) {

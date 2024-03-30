@@ -1,4 +1,4 @@
 {
-  "item.sketch.default_boat": "Default Boat",
-  "item.sketch.default_chest_boat": "Default Chest Boat"
+  "item.sketch.fallback_boat": "Fallback Boat",
+  "item.sketch.fallback_chest_boat": "Fallback Chest Boat"
 }

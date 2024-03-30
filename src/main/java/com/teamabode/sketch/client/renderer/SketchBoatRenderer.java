@@ -90,7 +90,7 @@ public class SketchBoatRenderer extends EntityRenderer<Boat> {
     private static ResourceLocation getTextureLocation(SketchBoatType type, boolean chestBoat) {
         ResourceLocation location = SketchBuiltInRegistries.BOAT_TYPE.getKey(type);
 
-        String path = chestBoat ? "textures/entity/chest_boat/" + type.name() + ".png" : "textures/entity/boat/" + type.name() + ".png";
+        String path = chestBoat ? "textures/entity/chest_boat/" + type.assetId() + ".png" : "textures/entity/boat/" + type.assetId() + ".png";
         return new ResourceLocation(location.getNamespace(), path);
     }
 

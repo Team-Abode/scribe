@@ -33,32 +33,27 @@ public class SketchChestBoat extends ChestBoat implements SketchBoatAccessor {
         this.zo = z;
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(BOAT_TYPE, SketchBoatType.FALLBACK);
     }
 
+    @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-
-        compound.putString("scribe:boat_type", SketchBuiltInRegistries.BOAT_TYPE.getKey(this.getBoatType()).toString());
+        this.addSaveData(compound);
     }
 
+    @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-
-        SketchBoatType boatType = SketchBuiltInRegistries.BOAT_TYPE.get(ResourceLocation.tryParse(compound.getString("scribe:boat_type")));
-        if (boatType != null) {
-            this.setBoatType(boatType);
-        }
+        this.readSaveData(compound);
     }
 
+    @Override
     protected Component getTypeName() {
-        return getDescription();
-    }
-
-    public Component getDescription() {
-        return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.CHEST_BOAT)));
+        return this.getDescription(EntityType.CHEST_BOAT);
     }
 
     @Override
@@ -72,7 +67,7 @@ public class SketchChestBoat extends ChestBoat implements SketchBoatAccessor {
     @Override
     public ItemStack getPickResult() {
         if (SketchBoatItem.TYPE_TO_CHEST_BOAT_ITEM.containsKey(this.getBoatType())) {
-            return new ItemStack(SketchBoatItem.TYPE_TO_CHEST_BOAT_ITEM.get(this.getBoatType()));
+            return SketchBoatItem.TYPE_TO_CHEST_BOAT_ITEM.get(this.getBoatType()).getDefaultInstance();
         }
         return super.getPickResult();
     }
