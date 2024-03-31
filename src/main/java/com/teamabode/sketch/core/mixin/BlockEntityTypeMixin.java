@@ -22,7 +22,9 @@ public class BlockEntityTypeMixin {
 
         if (BlockEntityAdditions.ADDITIONS.containsKey($this)) {
             boolean hasBlock = BlockEntityAdditions.ADDITIONS.get($this).contains(state.getBlock());
-            cir.setReturnValue(hasBlock);
+            if (hasBlock) {
+                cir.setReturnValue(hasBlock);
+            }
         }
     }
 }
