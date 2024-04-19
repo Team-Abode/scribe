@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockEntityTypeMixin {
 
     @Inject(method = "isValid", at = @At("RETURN"), cancellable = true)
-    private void isValid(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+    private void sketch$isValid(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (BlockEntityExtender.canExtend((BlockEntityType<?>) (Object) this, state)) {
             cir.setReturnValue(true);
         }

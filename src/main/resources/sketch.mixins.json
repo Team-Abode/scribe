@@ -4,7 +4,9 @@
   "package": "com.teamabode.sketch.core.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockEntityTypeMixin"
+    "BlockEntityTypeMixin",
+    "LivingEntityMixin",
+    "PlayerMixin"
   ],
   "client": [],
   "injectors": {
