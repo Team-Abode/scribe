@@ -11,7 +11,15 @@ import java.util.Map;
 
 public record AnimationHolder(float length, boolean looping, Map<String, Map<TargetType, Map<String, KeyframeHolder>>> bones) {
 
-    public static final Codec<String> TIMESTAMP_CODEC = timestampStringWithMessage();
+    public static final Codec<String> TIMESTAMP_CODEC = Codec.STRING.validate(value -> {
+        try {
+            float parsedValue = Float.parseFloat(value);
+            return DataResult.success(Float.toString(parsedValue));
+        }
+        catch (NumberFormatException exception) {
+            return DataResult.error(() -> "Timestamp must be a float: " + value);
+        }
+    });
 
     public static final Codec<AnimationHolder> CODEC = RecordCodecBuilder.create(instance -> {
         var lengthFloat = ExtraCodecs.POSITIVE_FLOAT.fieldOf("length").forGetter(AnimationHolder::length);
@@ -29,17 +37,5 @@ public record AnimationHolder(float length, boolean looping, Map<String, Map<Tar
         this.length = length;
         this.looping = looping;
         this.bones = ImmutableMap.copyOf(bones);
-    }
-
-    private static Codec<String> timestampStringWithMessage() {
-        return ExtraCodecs.validate(Codec.STRING, string -> {
-            try {
-                float parsedValue = Float.parseFloat(string);
-                return DataResult.success(Float.toString(parsedValue));
-            }
-            catch (NumberFormatException exception) {
-                return DataResult.error(() -> "Timestamp must be a float: " + string);
-            }
-        });
     }
 }

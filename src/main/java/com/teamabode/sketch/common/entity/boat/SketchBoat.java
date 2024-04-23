@@ -1,13 +1,9 @@
 package com.teamabode.sketch.common.entity.boat;
 
-import com.teamabode.sketch.common.item.SketchBoatItem;
-import com.teamabode.sketch.core.registry.SketchBuiltInRegistries;
 import com.teamabode.sketch.core.registry.SketchDataSerializers;
 import com.teamabode.sketch.core.registry.SketchEntities;
 import com.teamabode.sketch.core.registry.SketchRegistries;
-import net.minecraft.Util;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -19,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class SketchBoat extends Boat implements SketchBoatAccessor {
-    private static final EntityDataAccessor<SketchBoatType> BOAT_TYPE = SynchedEntityData.defineId(SketchBoat.class, SketchDataSerializers.BOAT_TYPE);
+    private static final EntityDataAccessor<Holder<SketchBoatType>> BOAT_TYPE = SynchedEntityData.defineId(SketchBoat.class, SketchDataSerializers.BOAT_TYPE);
 
     public SketchBoat(EntityType<? extends Boat> entityType, Level level) {
         super(entityType, level);
@@ -34,10 +30,9 @@ public class SketchBoat extends Boat implements SketchBoatAccessor {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.getDisplayName();
-        this.entityData.define(BOAT_TYPE, SketchBoatType.FALLBACK);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(BOAT_TYPE, this.registryAccess().registryOrThrow(SketchRegistries.BOAT_TYPE).getHolderOrThrow(SketchBoatType.FALLBACK));
     }
 
     @Override
@@ -49,39 +44,31 @@ public class SketchBoat extends Boat implements SketchBoatAccessor {
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.readSaveData(compound);
+        this.readSaveData(compound, this.registryAccess());
     }
 
     @Override
     protected Component getTypeName() {
-        return this.getDescription();
+        return this.getDescription(EntityType.BOAT);
     }
 
     @Override
     public Item getDropItem() {
-        if (SketchBoatItem.TYPE_TO_BOAT_ITEM.containsKey(this.getBoatType())) {
-            return SketchBoatItem.TYPE_TO_BOAT_ITEM.get(this.getBoatType());
-        }
-        return super.getDropItem();
+        SketchBoatType type = this.getBoatType().value();
+        return this.getItemFromReference(this.registryAccess(), type.boatItem()).orElseGet(super::getDropItem);
     }
 
     @Override
     public ItemStack getPickResult() {
-        if (SketchBoatItem.TYPE_TO_BOAT_ITEM.containsKey(this.getBoatType())) {
-            return SketchBoatItem.TYPE_TO_BOAT_ITEM.get(this.getBoatType()).getDefaultInstance();
-        }
-        return super.getPickResult();
+        SketchBoatType type = this.getBoatType().value();
+        return this.getItemFromReference(this.registryAccess(), type.boatItem()).orElseGet(super::getDropItem).getDefaultInstance();
     }
 
-    public Component getDescription() {
-        return Component.translatable(Util.makeDescriptionId("entity", BuiltInRegistries.ENTITY_TYPE.getKey(EntityType.BOAT)));
-    }
-
-    public void setBoatType(SketchBoatType type) {
+    public void setBoatType(Holder<SketchBoatType> type) {
         this.entityData.set(BOAT_TYPE, type);
     }
 
-    public SketchBoatType getBoatType() {
+    public Holder<SketchBoatType> getBoatType() {
         return this.entityData.get(BOAT_TYPE);
     }
 }

@@ -37,7 +37,7 @@ public class AnimationManager extends SimpleJsonResourceReloadListener implement
         ImmutableMap.Builder<ResourceLocation, AnimationDefinition> registry = new ImmutableMap.Builder<>();
         data.forEach((resourceLocation, jsonElement) -> {
             try {
-                AnimationHolder animationHolder = Util.getOrThrow(AnimationHolder.CODEC.parse(JsonOps.INSTANCE, jsonElement), JsonParseException::new);
+                AnimationHolder animationHolder = AnimationHolder.CODEC.parse(JsonOps.INSTANCE, jsonElement).getOrThrow(JsonParseException::new);
                 registry.put(resourceLocation, this.createAnimation(animationHolder));
             }
             catch (Exception exception) {

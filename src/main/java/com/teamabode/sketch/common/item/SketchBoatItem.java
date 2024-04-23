@@ -1,7 +1,7 @@
 package com.teamabode.sketch.common.item;
 
-import com.google.common.collect.Maps;
 import com.teamabode.sketch.common.entity.boat.*;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,24 +20,19 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 public class SketchBoatItem extends Item {
-    public static final Map<SketchBoatType, Item> TYPE_TO_BOAT_ITEM = Maps.newHashMap();
-    public static final Map<SketchBoatType, Item> TYPE_TO_CHEST_BOAT_ITEM = Maps.newHashMap();
     private static final Predicate<Entity> ENTITY_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
 
-    private final SketchBoatType type;
+    private final ResourceKey<SketchBoatType> type;
     private final boolean hasChest;
 
-    public SketchBoatItem(Properties properties, SketchBoatType type, boolean hasChest) {
+    public SketchBoatItem(Properties properties, ResourceKey<SketchBoatType> type, boolean hasChest) {
         super(properties);
         this.type = type;
         this.hasChest = hasChest;
 
-        if (hasChest) TYPE_TO_CHEST_BOAT_ITEM.put(type, this);
-        else TYPE_TO_BOAT_ITEM.put(type, this);
         DispenserBlock.registerBehavior(this, new SketchBoatDispenserItemBehavior(type, hasChest));
     }
 
@@ -60,7 +55,7 @@ public class SketchBoatItem extends Item {
         }
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             Boat boat = this.getBoat(level, hitResult);
-            ((SketchBoatAccessor) boat).setBoatType(this.type);
+            SketchBoatType.setTypeFromKey(level.registryAccess(), (SketchBoatAccessor) boat, this.type);
             boat.setYRot(player.getYRot());
             if (!level.noCollision(boat, boat.getBoundingBox())) {
                 return InteractionResultHolder.fail(itemStack);

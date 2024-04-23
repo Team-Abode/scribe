@@ -1,10 +1,12 @@
 package com.teamabode.sketch.common.entity.boat;
 
 import com.teamabode.sketch.core.registry.SketchEntities;
+import com.teamabode.sketch.core.registry.SketchRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
@@ -13,14 +15,14 @@ import net.minecraft.world.level.block.DispenserBlock;
 
 public class SketchBoatDispenserItemBehavior extends DefaultDispenseItemBehavior {
     private final DefaultDispenseItemBehavior behavior;
-    private final SketchBoatType type;
+    private final ResourceKey<SketchBoatType> type;
     private final boolean isChestBoat;
 
-    public SketchBoatDispenserItemBehavior(SketchBoatType type) {
+    public SketchBoatDispenserItemBehavior(ResourceKey<SketchBoatType> type) {
         this(type, false);
     }
 
-    public SketchBoatDispenserItemBehavior(SketchBoatType type, boolean isChestBoat) {
+    public SketchBoatDispenserItemBehavior(ResourceKey<SketchBoatType> type, boolean isChestBoat) {
         this.type = type;
         this.isChestBoat = isChestBoat;
         this.behavior = new DefaultDispenseItemBehavior();
@@ -46,9 +48,8 @@ public class SketchBoatDispenserItemBehavior extends DefaultDispenseItemBehavior
             yOffset = 0.0;
         }
         Boat boat = this.isChestBoat ? new SketchChestBoat(level, spawnX, spawnY + yOffset, spawnZ) : new SketchBoat(level, spawnX, spawnY + yOffset, spawnZ);
-        ((SketchBoatAccessor) boat).setBoatType(this.type);
+        SketchBoatType.setTypeFromKey(level.registryAccess(), (SketchBoatAccessor) boat, this.type);
         boat.setYRot(direction.toYRot());
-
         level.addFreshEntity(boat);
         stack.shrink(1);
         return stack;

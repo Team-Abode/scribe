@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Player.class)
 public class PlayerMixin {
 
-    @Inject(method = "blockUsingShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;disableShield(Z)V", shift = At.Shift.AFTER))
+    @Inject(method = "blockUsingShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;disableShield()V", shift = At.Shift.AFTER))
     private void sketch$blockUsingShield(LivingEntity attacker, CallbackInfo ci) {
         ShieldEvents.DISABLED.invoker().disabled((Player) (Object) this, attacker);
     }
