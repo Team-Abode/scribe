@@ -9,7 +9,7 @@ import net.minecraft.util.StringRepresentable;
 
 import java.util.Map;
 
-public record AnimationHolder(float length, boolean looping, Map<String, Map<TargetType, Map<String, KeyframeHolder>>> bones) {
+public record AnimationHolder(float lengthInSeconds, boolean looping, Map<String, Map<TargetType, Map<String, KeyframeHolder>>> bones) {
 
     public static final Codec<String> TIMESTAMP_CODEC = Codec.STRING.validate(value -> {
         try {
@@ -22,19 +22,18 @@ public record AnimationHolder(float length, boolean looping, Map<String, Map<Tar
     });
 
     public static final Codec<AnimationHolder> CODEC = RecordCodecBuilder.create(instance -> {
-        var lengthFloat = ExtraCodecs.POSITIVE_FLOAT.fieldOf("length").forGetter(AnimationHolder::length);
-        var loopingBool = Codec.BOOL.fieldOf("looping").forGetter(AnimationHolder::looping);
-
+        var length = ExtraCodecs.POSITIVE_FLOAT.fieldOf("length_in_seconds").forGetter(AnimationHolder::lengthInSeconds);
+        var looping = Codec.BOOL.fieldOf("looping").forGetter(AnimationHolder::looping);
         var timestamps = Codec.unboundedMap(TIMESTAMP_CODEC, KeyframeHolder.CODEC);
         var targets = Codec.simpleMap(TargetType.CODEC, timestamps, StringRepresentable.keys(TargetType.values()));
         var bones = Codec.unboundedMap(Codec.STRING, targets.codec()).fieldOf("bones").forGetter(AnimationHolder::bones);
 
-        var group = instance.group(lengthFloat, loopingBool, bones);
+        var group = instance.group(length, looping, bones);
         return group.apply(instance, AnimationHolder::new);
     });
 
-    public AnimationHolder(float length, boolean looping, Map<String, Map<TargetType, Map<String, KeyframeHolder>>> bones) {
-        this.length = length;
+    public AnimationHolder(float lengthInSeconds, boolean looping, Map<String, Map<TargetType, Map<String, KeyframeHolder>>> bones) {
+        this.lengthInSeconds = lengthInSeconds;
         this.looping = looping;
         this.bones = ImmutableMap.copyOf(bones);
     }

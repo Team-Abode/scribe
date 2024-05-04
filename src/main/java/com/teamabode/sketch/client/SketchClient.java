@@ -2,8 +2,7 @@ package com.teamabode.sketch.client;
 
 import com.teamabode.sketch.client.renderer.SketchBoatRenderer;
 import com.teamabode.sketch.core.api.animation.AnimationManager;
-import com.teamabode.sketch.core.api.config.Config;
-import com.teamabode.sketch.core.api.config.ConfigBuilder;
+import com.teamabode.sketch.core.config.SketchAnimationConfig;
 import com.teamabode.sketch.core.registry.SketchEntities;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -22,7 +21,6 @@ public class SketchClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(SketchBoatRenderer.BOAT, BoatModel::createBodyModel);
         EntityModelLayerRegistry.registerModelLayer(SketchBoatRenderer.CHEST_BOAT, ChestBoatModel::createBodyModel);
-
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(ANIMATION_MANAGER);
     }
 }

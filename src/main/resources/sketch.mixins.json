@@ -4,10 +4,12 @@
   "package": "com.teamabode.sketch.core.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "client.FrogModelMixin",
     "BlockEntityTypeMixin",
     "LivingEntityMixin",
     "PlayerMixin"
   ],
+  "plugin": "com.teamabode.sketch.core.mixin.SketchMixinPlugin",
   "client": [],
   "injectors": {
     "defaultRequire": 1

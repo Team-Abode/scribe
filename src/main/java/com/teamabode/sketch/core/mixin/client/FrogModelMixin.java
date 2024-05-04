@@ -1,7 +1,6 @@
 package com.teamabode.sketch.core.mixin.client;
 
 import com.teamabode.sketch.client.SketchClient;
-import com.teamabode.sketch.core.api.animation.AnimationManager;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.FrogModel;
 import net.minecraft.resources.ResourceLocation;

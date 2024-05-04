@@ -8,7 +8,6 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.JsonOps;
 import com.teamabode.sketch.Sketch;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.Util;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.AnimationDefinition.Builder;
@@ -55,7 +54,7 @@ public class AnimationManager extends SimpleJsonResourceReloadListener implement
     }
 
     private AnimationDefinition createAnimation(AnimationHolder data) {
-        Builder builder = Builder.withLength(data.length());
+        Builder builder = Builder.withLength(data.lengthInSeconds());
         var bones = data.bones();
         bones.forEach((bone, targetMap) -> {
             var targets = bones.get(bone);

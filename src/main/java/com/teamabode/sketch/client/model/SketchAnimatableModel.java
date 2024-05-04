@@ -1,7 +1,6 @@
 package com.teamabode.sketch.client.model;
 
 import com.teamabode.sketch.client.SketchClient;
-import com.teamabode.sketch.core.api.animation.AnimationManager;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.resources.ResourceLocation;
