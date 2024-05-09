@@ -1,18 +1,20 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "com.teamabode.sketch.core.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "BlockEntityTypeMixin",
-    "LivingEntityMixin",
-    "PlayerMixin"
-  ],
-  "plugin": "com.teamabode.sketch.core.mixin.SketchMixinPlugin",
-  "client": [
-    "client.FrogModelMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.teamabode.sketch.core.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "BlockEntityTypeMixin",
+        "LivingEntityMixin",
+        "PlayerMixin"
+    ],
+    "plugin": "com.teamabode.sketch.core.mixin.SketchMixinPlugin",
+    "client": [
+        "client.BlockModelAccessor",
+        "client.FrogModelMixin",
+        "client.ModelManagerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
   }
 }

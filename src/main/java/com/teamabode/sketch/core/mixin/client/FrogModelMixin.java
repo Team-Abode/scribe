@@ -1,6 +1,6 @@
 package com.teamabode.sketch.core.mixin.client;
 
-import com.teamabode.sketch.client.SketchClient;
+import com.teamabode.sketch.core.api.animation.AnimationManager;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.FrogModel;
 import net.minecraft.resources.ResourceLocation;
@@ -19,31 +19,31 @@ public class FrogModelMixin {
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 0), index = 1)
     private AnimationDefinition animateFrogJump(AnimationDefinition originalParam) {
-        return SketchClient.ANIMATION_MANAGER.getAnimation(FROG_JUMP);
+        return AnimationManager.INSTANCE.getAnimation(FROG_JUMP);
     }
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 1), index = 1)
     private AnimationDefinition animateFrogCroak(AnimationDefinition originalParam) {
-        return SketchClient.ANIMATION_MANAGER.getAnimation(FROG_CROAK);
+        return AnimationManager.INSTANCE.getAnimation(FROG_CROAK);
     }
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 2), index = 1)
     private AnimationDefinition animateFrogTongue(AnimationDefinition originalParam) {
-        return SketchClient.ANIMATION_MANAGER.getAnimation(FROG_TONGUE);
+        return AnimationManager.INSTANCE.getAnimation(FROG_TONGUE);
     }
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animate(Lnet/minecraft/world/entity/AnimationState;Lnet/minecraft/client/animation/AnimationDefinition;F)V", ordinal = 3), index = 1)
     private AnimationDefinition animateFrogIdleWater(AnimationDefinition originalParam) {
-        return SketchClient.ANIMATION_MANAGER.getAnimation(FROG_IDLE_WATER);
+        return AnimationManager.INSTANCE.getAnimation(FROG_IDLE_WATER);
     }
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animateWalk(Lnet/minecraft/client/animation/AnimationDefinition;FFFF)V", ordinal = 0), index = 0)
     private AnimationDefinition animateFrogSwim(AnimationDefinition originalParam) {
-        return SketchClient.ANIMATION_MANAGER.getAnimation(FROG_SWIM);
+        return AnimationManager.INSTANCE.getAnimation(FROG_SWIM);
     }
 
     @ModifyArg(method = "setupAnim(Lnet/minecraft/world/entity/animal/frog/Frog;FFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/FrogModel;animateWalk(Lnet/minecraft/client/animation/AnimationDefinition;FFFF)V", ordinal = 1), index = 0)
     private AnimationDefinition animateFrogWalk(AnimationDefinition originalParam) {
-        return SketchClient.ANIMATION_MANAGER.getAnimation(FROG_WALK);
+        return AnimationManager.INSTANCE.getAnimation(FROG_WALK);
     }
 }

@@ -26,6 +26,7 @@
   "mixins": [
     "sketch.mixins.json"
   ],
+  "accessWidener": "sketch.accesswidener",
   "depends": {
     "fabricloader": ">=0.15.10",
     "minecraft": "~1.20.5",

@@ -23,11 +23,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class AnimationManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
     private static final AnimationDefinition FALLBACK_ANIMATION = AnimationDefinition.Builder.withLength(0.0f).build();
     private static final Gson GSON = new GsonBuilder().create();
+    public static final AnimationManager INSTANCE = new AnimationManager();
 
     private Map<ResourceLocation, AnimationDefinition> animations;
 
     public AnimationManager() {
-        super(GSON, "sketch_animations");
+        super(GSON, "sketch/animations");
         this.animations = Map.of();
     }
 
