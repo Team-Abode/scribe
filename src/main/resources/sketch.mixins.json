@@ -10,8 +10,8 @@
     ],
     "plugin": "com.teamabode.sketch.core.mixin.SketchMixinPlugin",
     "client": [
+        "client.animation.FrogModelMixin",
         "client.BlockModelAccessor",
-        "client.FrogModelMixin",
         "client.ModelManagerMixin"
     ],
     "injectors": {

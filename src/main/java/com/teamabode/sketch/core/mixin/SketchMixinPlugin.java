@@ -1,6 +1,5 @@
 package com.teamabode.sketch.core.mixin;
 
-import com.teamabode.sketch.client.SketchClient;
 import com.teamabode.sketch.core.api.config.ConfigManager;
 import com.teamabode.sketch.core.config.SketchAnimationConfig;
 import org.objectweb.asm.tree.ClassNode;
@@ -25,7 +24,7 @@ public class SketchMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         ConfigManager.INSTANCE.register(SketchAnimationConfig.INSTANCE);
 
-        if (mixinClassName.contains("client.FrogModel")) {
+        if (mixinClassName.contains("client.animation.FrogModel")) {
             return SketchAnimationConfig.INSTANCE.frog.get();
         }
         return true;

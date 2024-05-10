@@ -1,4 +1,4 @@
-package com.teamabode.sketch.core.mixin.client;
+package com.teamabode.sketch.core.mixin.client.animation;
 
 import com.teamabode.sketch.core.api.animation.AnimationManager;
 import net.minecraft.client.animation.AnimationDefinition;
