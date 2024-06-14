@@ -23,6 +23,6 @@ public class Sketch implements ModInitializer {
     }
 
     public static ResourceLocation id(String name) {
-        return new ResourceLocation(MOD_ID, name);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
     }
 }

@@ -1,15 +1,10 @@
 package com.teamabode.sketch.client.renderer;
 
-import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
 import com.teamabode.sketch.Sketch;
-import com.teamabode.sketch.common.entity.boat.SketchBoat;
 import com.teamabode.sketch.common.entity.boat.SketchBoatAccessor;
-import com.teamabode.sketch.common.entity.boat.SketchBoatType;
-import com.teamabode.sketch.common.entity.boat.SketchChestBoat;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.ListModel;
@@ -26,11 +21,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
-import java.util.Map;
-
 public class SketchBoatRenderer extends EntityRenderer<Boat> {
-    public static final ModelLayerLocation BOAT = new ModelLayerLocation(new ResourceLocation(Sketch.MOD_ID, "boat"), "main");
-    public static final ModelLayerLocation CHEST_BOAT = new ModelLayerLocation(new ResourceLocation(Sketch.MOD_ID, "chest_boat"), "main");
+    public static final ModelLayerLocation BOAT = new ModelLayerLocation(Sketch.id("boat"), "main");
+    public static final ModelLayerLocation CHEST_BOAT = new ModelLayerLocation(Sketch.id("chest_boat"), "main");
 
     private final ListModel<Boat> model;
     private final boolean chestBoat;
@@ -62,12 +55,12 @@ public class SketchBoatRenderer extends EntityRenderer<Boat> {
         matrixStack.scale(-1.0F, -1.0F, 1.0F);
         matrixStack.mulPose(Axis.YP.rotationDegrees(90.0F));
         model.setupAnim(boat, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
-        VertexConsumer vertexConsumer = buffer.getBuffer(this.model.renderType(this.getTextureLocation(boat)));
-        model.renderToBuffer(matrixStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        VertexConsumer boatVertex = buffer.getBuffer(this.model.renderType(this.getTextureLocation(boat)));
+        model.renderToBuffer(matrixStack, boatVertex, packedLight, OverlayTexture.NO_OVERLAY);
         if (!boat.isUnderWater()) {
-            VertexConsumer vertexConsumer2 = buffer.getBuffer(RenderType.waterMask());
+            VertexConsumer waterPatchVertex = buffer.getBuffer(RenderType.waterMask());
             if (model instanceof WaterPatchModel waterPatchModel) {
-                waterPatchModel.waterPatch().render(matrixStack, vertexConsumer2, packedLight, OverlayTexture.NO_OVERLAY);
+                waterPatchModel.waterPatch().render(matrixStack, waterPatchVertex, packedLight, OverlayTexture.NO_OVERLAY);
             }
         }
         matrixStack.popPose();

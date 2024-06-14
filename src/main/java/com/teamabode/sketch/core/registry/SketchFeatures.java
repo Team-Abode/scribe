@@ -14,7 +14,7 @@ public class SketchFeatures {
     public static final Feature<SequenceFeatureConfiguration> SEQUENCE = create("sequence", new SequenceFeature());
 
     private static <FC extends FeatureConfiguration> Feature<FC> create(String name, Feature<FC> feature) {
-        return Registry.register(BuiltInRegistries.FEATURE, new ResourceLocation(Sketch.MOD_ID, name), feature);
+        return Registry.register(BuiltInRegistries.FEATURE, Sketch.id(name), feature);
     }
 
     public static void init() {}

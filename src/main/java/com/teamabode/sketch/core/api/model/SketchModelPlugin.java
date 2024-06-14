@@ -19,7 +19,7 @@ public class SketchModelPlugin implements ModelLoadingPlugin {
     private static UnbakedModel injectItemOverrides(UnbakedModel model, ModelModifier.OnLoad.Context context) {
         var registry = ModelOverrideManager.INSTANCE.getRegistry();
         for (var entry : registry.entrySet()) {
-            boolean locationsMatch = entry.getKey().equals(context.id());
+            boolean locationsMatch = entry.getKey().equals(context.resourceId());
             if (locationsMatch && model instanceof BlockModel blockModel) {
                 BlockModelAccessor accessor = (BlockModelAccessor) blockModel;
                 List<ItemOverride> overrides = entry.getValue();
