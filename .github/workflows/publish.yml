@@ -1,0 +1,62 @@
+name: Publish
+on:
+  release:
+    types: [published]
+
+env:
+  MINECRAFT_VERSION: 1.21
+  JAVA_VERSION: 21
+  MOD_NAME: Sketch
+  MOD_VERSION: 1.2.0
+  MODRINTH_PROJECT_ID: 4erSrc0h
+  MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
+  CURSEFORGE_PROJECT_ID: 1008273
+  CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check environment variables
+        run: env
+
+      - name: checkout release
+        uses: actions/github-script@v6
+        env:
+          RELEASE_NAME: "${{ github.event.release.name }}"
+          RELEASE_BODY: "${{ github.event.release.body }}"
+
+      - name: checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: setup java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.MINECRAFT_VERSION }}
+
+      - name: build
+        run: ./gradlew clean build
+
+      - name: publish to websites
+        uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          curseforge-id: "${{env.CURSEFORGE_PROJECT_ID}}"
+          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+
+          modrinth-id: "${{env.MODRINTH_PROJECT_ID}}"
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
+
+          name: "${{env.RELEASE_NAME}}"
+          version: "${{env.MOD_VERSION}}"
+          version-type: release
+          changelog: "${{env.RELEASE_BODY}}"
+
+          loaders: fabric
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
