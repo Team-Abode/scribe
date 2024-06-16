@@ -40,11 +40,15 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ env.MINECRAFT_VERSION }}
 
+      - name: make gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
       - name: build
         run: ./gradlew clean build
 
-      - name: publish to websites
-        uses: Kir-Antipov/mc-publish@v3.2
+      - name: publish
+        uses: Kir-Antipov/mc-publish@v2.1
         with:
           curseforge-id: "${{env.CURSEFORGE_PROJECT_ID}}"
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
