@@ -45,7 +45,7 @@ jobs:
         run: ./gradlew clean build
 
       - name: publish
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: "${{env.CURSEFORGE_PROJECT_ID}}"
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
