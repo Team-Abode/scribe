@@ -43,6 +43,6 @@ jobs:
           version-type: release
           changelog-file: CHANGELOG.md
           github-tag: "${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
-          curseforge-token: "${{secrets.PUBLISH_MODRINTH_TOKEN}}"
-          modrinth-token: "${{secrets.PUBLISH_CURSEFORGE_TOKEN}}"
+          curseforge-token: "${{secrets.PUBLISH_CURSEFORGE_TOKEN}}"
+          modrinth-token: "${{secrets.PUBLISH_MODRINTH_TOKEN}}"
           github-token: "${{secrets.PUBLISH_GITHUB_TOKEN}}"
