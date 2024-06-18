@@ -1,18 +1,11 @@
 name: Publish
-on:
-  release:
-    types: [published]
-  workflow_dispatch:
+on: [ workflow_dispatch ]
 
 env:
+  MOD_NAME: Sketch
   MINECRAFT_VERSION: 1.21
   JAVA_VERSION: 21
-  MOD_NAME: Sketch
   MOD_VERSION: 1.2.0
-  MODRINTH_PROJECT_ID: 4erSrc0h
-  MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
-  CURSEFORGE_PROJECT_ID: 1008273
-  CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
 
 permissions:
   contents: write
@@ -41,23 +34,21 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ env.JAVA_VERSION }}
 
+      - name: make gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
       - name: build
         run: ./gradlew clean build
 
       - name: publish
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: "${{env.CURSEFORGE_PROJECT_ID}}"
-          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
-
-          modrinth-id: "${{env.MODRINTH_PROJECT_ID}}"
-          modrinth-token: "${{env.MODRINTH_TOKEN}}"
-
-          name: "${{env.RELEASE_NAME}}"
-          version: "${{env.MOD_VERSION}}"
+          name: "${{env.MOD_NAME}} ${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
+          version: "${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
           version-type: release
-          changelog: "${{env.RELEASE_BODY}}"
-
-          loaders: fabric
-          game-versions: "${{env.MINECRAFT_VERSION}}"
-          java: "${{env.JAVA_VERSION}}"
+          changelog-file: CHANGELOG.md
+          github-tag: "${{env.MINECRAFT_VERSION}}-${{env.MOD_VERSION}}"
+          curseforge-token: "${{secrets.PUBLISH_MODRINTH_TOKEN}}"
+          modrinth-token: "${{secrets.PUBLISH_CURSEFORGE_TOKEN}}"
+          github-token: "${{secrets.PUBLISH_GITHUB_TOKEN}}"
