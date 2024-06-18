@@ -17,12 +17,6 @@ jobs:
       - name: check environment variables
         run: env
 
-      - name: checkout release
-        uses: actions/github-script@v6
-        env:
-          RELEASE_NAME: "${{ github.event.release.name }}"
-          RELEASE_BODY: "${{ github.event.release.body }}"
-
       - name: checkout repository
         uses: actions/checkout@v3
         with:
