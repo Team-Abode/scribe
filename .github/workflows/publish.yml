@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
-          java-version: ${{ env.MINECRAFT_VERSION }}
+          java-version: 21
 
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
