@@ -3,9 +3,9 @@ on: [ workflow_dispatch ]
 
 env:
   MOD_NAME: Sketch
-  MINECRAFT_VERSION: 1.21
+  MINECRAFT_VERSION: 1.21.1
   JAVA_VERSION: 21
-  MOD_VERSION: 1.2.0
+  MOD_VERSION: 1.2.1
 
 permissions:
   contents: write
