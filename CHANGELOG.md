@@ -1,2 +1,1 @@
-* Ported to 1.21
-* Added experimental Model Override API
+* Removed the Block Entity Extender API, as FAPI has implemented this feature.

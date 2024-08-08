@@ -4,7 +4,6 @@
     "package": "com.teamabode.sketch.core.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "BlockEntityTypeMixin",
         "LivingEntityMixin",
         "PlayerMixin"
     ],
